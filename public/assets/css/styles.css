@@ -33,6 +33,10 @@ html, body {
   margin-top: 13px;
   font-size: 3rem;
 }
+.penStyle {
+  padding-right: 10px;
+  color: green !important;
+}
 
 .note-title:read-only, .note-textarea:read-only {
   color: #757575;
