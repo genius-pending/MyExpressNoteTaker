@@ -148,11 +148,9 @@ let renderNoteList = function(notes) {
     let $delBtn = $(
       "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
     );
-    let $editBtn = $(
-      "<i class='penStyle fas fa-pen text-light edit-note float-right'>"
-    );
+    
 
-    $li.append($span, $delBtn, $editBtn);
+    $li.append($span, $delBtn,);
     noteListItems.push($li);
   }
 
