@@ -32,9 +32,10 @@ app.post("/api/notes", function (req, res) {
     }
     notes = JSON.parse(notes)
 
-    let id = notes[notes.length - 1].id + 1
+    let id = getnextID(notes)
     let newNote = { title: req.body.title, text: req.body.text, id: id }
     let activeNote = notes.concat(newNote)
+
 
     fs.writeFile(__dirname + "/db/db.json", JSON.stringify(activeNote), function (error, data) {
       if (error) {
@@ -45,6 +46,17 @@ app.post("/api/notes", function (req, res) {
     })
   })
 })
+
+function getnextID(notes) {
+  if (notes.length > 0) {
+    let newID = notes[notes.length - 1].id + 1
+    return newID
+  }
+  else return 1
+};
+
+
+
 
 // Pull from db.json
 app.get("/api/notes", function (req, res) {
@@ -77,18 +89,18 @@ app.delete("/api/notes/:id", function (req, res) {
   })
 })
 
-app.put("/api/notes/:id", function(req, res) {
+app.put("/api/notes/:id", function (req, res) {
   const noteId = JSON.parse(req.params.id)
   console.log(noteId)
-  fs.readFile(__dirname + "db/db.json", "utf8", function(error, notes) {
-    if (error ){
+  fs.readFile(__dirname + "/db/db.json", "utf8", function (error, notes) {
+    if (error) {
       return console.log(error)
     }
     notes.JSONparse(notes)
 
     notes = notes.filter(val => val.id !== noteId)
 
-    fs.writeFile(__dirname +"db/db.json", JSON.stringify(notes), function (error, data) {
+    fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function (error, data) {
       if (error) {
         return error
       }
